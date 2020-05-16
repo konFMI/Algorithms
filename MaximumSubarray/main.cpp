@@ -18,10 +18,7 @@
     {
         int inputValue = 0;
         
-        while (!std::cin>>inputValue)
-        {
-            std::cout<<"Enter a valid integer."<<std::endl;
-        }
+       std::cin>>inputValue;
         array[i] = inputValue;
         
     }
@@ -31,12 +28,12 @@
 
     data = FindMaxSubarray(array, low, high);
     std::cout<<"The maximum subarray is:"<<std::endl;
-    std::cout<<"[ ";
-    for (size_t i = get<0>(data); i <= get<1>(data); i++)
+    std::cout<<"[";
+    for (size_t i = get<0>(data); i < get<1>(data); i++)
     {
-        std::cout<<array[i]<<" ";
+        std::cout<<array[i]<<", ";
     }
-    std::cout<<"]"<<std::endl;
+    std::cout<<array[get<1>(data)]<<"]"<<std::endl;
     std::cout<<"With the maximum sum of "<<get<2>(data)<<std::endl;
     delete array;
 }
@@ -51,6 +48,20 @@
      }
      std::cout<<"\nMax sum: "<<get<2>(data)<<"\n";
  }
+ void TestLinearCode()
+ {
+     int array[] = {13,-3,-25,20,-3,-16,-23,18,20,-7,12,-5,-22,15,-4,7};
+     tuple<int,int,int> result = MaxSubarrayKadane(array,16);
+     std::cout<<"[";
+     for (size_t i = get<0>(result); i < get<1>(result); i++)
+     {
+         std::cout<<array[i]<<", ";
+     }
+     std::cout<<array[get<1>(result)]<<"]"<<std::endl;
+     std::cout<<"Max sum: "<<get<2>(result)<<std::endl;
+ }
  int main(){
-     TestCodeBook();
+     
+     TestLinearCode();
+     return 0;
  }
