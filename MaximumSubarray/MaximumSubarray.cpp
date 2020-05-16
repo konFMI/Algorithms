@@ -1,17 +1,13 @@
-namespace MaximumSubarray
-{
-    #include<iostream>
-    #include<tuple>
-    #include<limits>
-    
-    using std::tuple;
-    using std::make_tuple;
-    using std::get;
-    using std::numeric_limits;
+#include<tuple>
+#include<limits>
+
+using std::tuple;
+using std::make_tuple;
+using std::get;
+using std::numeric_limits;
 
     tuple<int,int,int> FindMaxCrossingSubarray(int* array, int low, int mid, int high)
     {
-        tuple<int,int,int> data;
         int leftSum = numeric_limits<int>::min();
         int maxLeftIndex = mid;
         int sum = 0;
@@ -42,8 +38,8 @@ namespace MaximumSubarray
             }
         }
 
-        data = make_tuple(maxLeftIndex,maxRightIndex,leftSum+rightSum);
-        return data;
+        return make_tuple(maxLeftIndex,maxRightIndex,leftSum+rightSum);
+        
     }
 
     tuple<int,int,int> FindMaxSubarray(int* array, int low, int high)
@@ -76,4 +72,4 @@ namespace MaximumSubarray
             return crossingSubarray;
         }
     }
-}
+

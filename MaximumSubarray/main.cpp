@@ -1,7 +1,8 @@
-#include<iostream>
-#include"MaximumSubarray.cpp"
-using namespace MaximumSubarray;
-void TestCode()
+
+ #include<iostream>
+ #include"MaximumSubarray.cpp"
+ 
+ void TestCode()
 {
     tuple<int,int,int> data;
     int size = 0;
@@ -39,21 +40,17 @@ void TestCode()
     std::cout<<"With the maximum sum of "<<get<2>(data)<<std::endl;
     delete array;
 }
-void TestCodeBook()
-{
-    int array[] = {13,-3,-25,20,-3,-16,-23,18,20,-7,12,-5,-22,15,-4,7};
-    tuple<int,int,int> data = FindMaxSubarray(array,0,15);
-    std::cout<<get<2>(data)<<std::endl;
-    for (size_t i = get<0>(data); i <= get<1>(data); i++)
-    {
-        std::cout<<array[i]<< " ";
-    }
-    std::cout<<"\nMax sum: "<<get<2>(data)<<"\n";
-    
-}
-int main(){
-
-    TestCode();
-
-    return 0;
-}
+ void TestCodeBook()
+ {
+     int array[] = {13,-3,-25,20,-3,-16,-23,18,20,-7,12,-5,-22,15,-4,7};
+     tuple<int,int,int> data = FindMaxSubarray(array,0,15);
+     std::cout<<get<2>(data)<<std::endl;
+     for (size_t i = get<0>(data); i <= get<1>(data); i++)
+     {
+         std::cout<<array[i]<< " ";
+     }
+     std::cout<<"\nMax sum: "<<get<2>(data)<<"\n";
+ }
+ int main(){
+     TestCodeBook();
+ }
