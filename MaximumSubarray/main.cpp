@@ -1,5 +1,6 @@
 #include<iostream>
-#include"MaximumSubarray.h"
+#include"MaximumSubarray.cpp"
+using namespace MaximumSubarray;
 void TestCode()
 {
     tuple<int,int,int> data;
