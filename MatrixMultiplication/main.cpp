@@ -40,7 +40,7 @@ int main()
         {0,0,0}
     };
     
-    MultiplyMatrix(leftMatrix,rightMatrix,resultMatrix);
+    SquareMatrixMultiply(leftMatrix,rightMatrix,resultMatrix);
     PrintSquareMatrix(leftMatrix);
     PrintSquareMatrix(rightMatrix);
     PrintSquareMatrix(resultMatrix);

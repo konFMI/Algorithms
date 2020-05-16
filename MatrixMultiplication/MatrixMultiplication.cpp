@@ -5,7 +5,7 @@
 using std::vector;
 
 // O(n^3)
-void MultiplyMatrix(vector<vector<int>>& leftMatrix,vector<vector<int>>& rightMatrix, vector<vector<int>>& resultMatrix)
+void SquareMatrixMultiply(vector<vector<int>>& leftMatrix,vector<vector<int>>& rightMatrix, vector<vector<int>>& resultMatrix)
 {
 
     for (size_t i = 0; i < leftMatrix.size(); i++)
