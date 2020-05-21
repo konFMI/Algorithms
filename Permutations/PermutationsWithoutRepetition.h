@@ -87,16 +87,4 @@ struct Solution
 
 
 
-int main()
-{
-    permute.AddElement('A');
-    permute.AddElement('B');
-    permute.AddElement('B');
-    permute.AddElement('D');
-    permute.AddElement('F');
-    permute.AddElement('F');
-    
-    permute.WithoutRepetition(0);
-    permute.Print();
-    return 0;
-}
+
