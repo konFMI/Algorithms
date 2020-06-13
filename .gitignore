@@ -1,0 +1,9 @@
+
+Algorithms/Algorithms.vcxproj.filters
+Algorithms/Algorithms.vcxproj
+*.user
+*.tlog
+*.obj
+*.idb
+*.pdb
+*.log
