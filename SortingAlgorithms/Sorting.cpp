@@ -44,6 +44,28 @@ namespace Algorithms
 			}
 		}
 
+		void Sort::Bubble(std::vector<int>& collection)
+		{
+			size_t length = collection.size();
+			bool notSorted = true;
+			while (notSorted)
+			{
+				notSorted = false;
+				for (size_t i = length, j = 0; j < i - 1; j++,i--)
+				{
+					if (collection[j] > collection[j+1])
+					{
+						collection[length - 1]++;
+						Swap(collection[j], collection[j + 1]);
+						notSorted = true;
+					}
+				}
+			}
+
+			
+		}
+
+
 		void Sort::Swap(int& leftValue, int& rightValue)
 		{
 			int tempValue = leftValue;

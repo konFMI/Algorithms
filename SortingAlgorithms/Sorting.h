@@ -13,7 +13,8 @@ namespace Algorithms
 			void Inserion(std::vector<int> &collection);
 
 			void Selection(std::vector<int>& collection);
-		private:
+
+			void Bubble(std::vector<int>& collection);
 
 			void Swap(int& leftValue, int& rightValue);
 		};

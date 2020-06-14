@@ -15,18 +15,31 @@ void print(std::vector<int> collection)
 
     return;
 }
+
 int main()
 {
-    Sort sort;
-    std::vector<int> collection = {1,2,3,4,5,6,7,8,9,-1,-2,-3,-4,-5,-6,-7};
-    
-    print(collection);
-
-    sort.Selection(collection);
-
-    print(collection);
-
     std::cout << "Hello World!\n";
+
+    Sort sort;
+    const size_t size = 10;
+    std::vector<int> collection;
+    for (size_t i = size; i > 0; i--)
+    {
+        collection.push_back(i);
+    }
+    int a = 2, b = 3;
+    std::cout << a << std::endl << b << std::endl;
+
+    sort.Swap(a, b);
+    std::cout << a << std::endl << b << std::endl;
+
+    collection[collection.size() - 1] = 0;
+    print(collection);
+
+    sort.Bubble(collection);
+
+    print(collection);
+
 }
 
 // Run program: Ctrl + F5 or Debug > Start Without Debugging menu
