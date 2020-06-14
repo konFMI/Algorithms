@@ -7,3 +7,11 @@ Algorithms/Algorithms.vcxproj
 *.idb
 *.pdb
 *.log
+*.json
+*.sqlite
+*.db-shm
+*.opendb
+*.testlog
+*.db
+*.db-wal
+*.manifest
