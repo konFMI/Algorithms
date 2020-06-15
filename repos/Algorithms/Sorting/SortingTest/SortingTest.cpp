@@ -11,11 +11,11 @@ namespace SortingTest
 	TEST_CLASS(SortingTest)
 	{
 	private:
-		Sort sort;
+		Sort<int,int> sort;
 		const size_t sizeOfVector = 50;
 	public:
 
-		TEST_METHOD(SwapTest)
+		TEST_METHOD(SwapIntegersTest)
 		{
 			int left = 5,
 				right = 10,
@@ -28,21 +28,7 @@ namespace SortingTest
 			Assert::AreEqual( right, expectedRight );
 		}
 
-		TEST_METHOD(SwapAfterSwapShouldBeAnIdentity)
-		{
-			int left = 5,
-				right = 10,
-				expectedLeft = left,
-				expectedRight = right;
-
-			sort.Swap(left, right);
-			sort.Swap(left, right);
-
-			Assert::AreEqual(left, expectedLeft);
-			Assert::AreEqual(right, expectedRight);
-		}
-
-		TEST_METHOD(SwapIdentityTest)
+		TEST_METHOD(SwapIntegersIdentityTest)
 		{
 			int left = 5,
 				right = 10,
@@ -54,6 +40,38 @@ namespace SortingTest
 
 			Assert::AreEqual(left, expectedLeft);
 			Assert::AreEqual(right, expectedRight);
+		}
+
+		TEST_METHOD(SwapElementIdentityTest)
+		{
+
+			Element<int, int> left = { 5,7 },
+				right = { 10, 12 },
+				expectedLeft = left,
+				expectedRight = right;
+
+			sort.Swap(&left, &right);
+			sort.Swap(&left, &right);
+
+			bool leftEqual = left == expectedLeft;
+			bool rightEqual = right == expectedRight;
+			Assert::IsTrue(leftEqual);
+			Assert::IsTrue(rightEqual);
+		}
+
+		TEST_METHOD(SwapElementTest)
+		{
+			Element<int, int> left = { 5,7 },
+				right = { 10, 12 },
+				expectedLeft = right,
+				expectedRight = left;
+
+			sort.Swap(&left, &right);
+
+			bool leftEqual = left == expectedLeft;
+			bool rightEqual = right == expectedRight;
+			Assert::IsTrue(leftEqual);
+			Assert::IsTrue(rightEqual);
 		}
 
 		TEST_METHOD(BubbleSortBasicTest)
@@ -117,7 +135,29 @@ namespace SortingTest
 
 			sort.MergeSort(actuall, 0, actuall.size() - 1);
 
-			Assert::AreEqual(actuall == expected, true);
+			bool areEqual = actuall == expected;
+			Assert::IsTrue(areEqual);
+		}
+
+		TEST_METHOD(ShakeSortBasicTest)
+		{
+			std::vector<Element<int,int>> expected;
+			std::vector<Element<int,int>> actuall;
+			for (int i = 0; i <= sizeOfVector; i++)
+			{
+				actuall.push_back(Element<int, int>{(int)sizeOfVector - i, i});
+				expected.push_back(Element<int, int>{i, (int)sizeOfVector - i});
+			}
+
+			sort.Shake(actuall);
+
+			bool areEqual = true;
+			for (size_t i = 0; i < sizeOfVector; i++)
+			{
+				areEqual = areEqual && expected[i] == actuall[i];
+			}
+
+			Assert::IsTrue(areEqual);
 		}
 	};
 }
