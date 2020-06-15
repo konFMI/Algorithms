@@ -15,3 +15,16 @@ Algorithms/Algorithms.vcxproj
 *.db
 *.db-wal
 *.manifest
+*.dll
+*.exe
+*.ilk
+*.ipch
+*.lib
+*.sln
+*.filters
+*.vcxproj
+*.suo
+*.pch
+*.exp
+*.txt
+SortingAlgorithms/.vs/Sorting/v16/.suo

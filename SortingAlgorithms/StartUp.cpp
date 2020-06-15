@@ -15,28 +15,25 @@ void print(std::vector<int> collection)
 
     return;
 }
-
-int main()
+void init(std::vector<int>& collection,const size_t size)
 {
-    std::cout << "Hello World!\n";
-
-    Sort sort;
-    const size_t size = 10;
-    std::vector<int> collection;
     for (size_t i = size; i > 0; i--)
     {
         collection.push_back(i);
     }
-    int a = 2, b = 3;
-    std::cout << a << std::endl << b << std::endl;
+}
+int main()
+{
+    Sort sort;
+    const size_t size = 10;
+    std::vector<int> collection;
 
-    sort.Swap(a, b);
-    std::cout << a << std::endl << b << std::endl;
-
-    collection[collection.size() - 1] = 0;
+    init(collection, size);
     print(collection);
+   
 
-    sort.Bubble(collection);
+
+    sort.HeapSort(collection);
 
     print(collection);
 
