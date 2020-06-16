@@ -48,18 +48,18 @@ void initWithElements(std::vector<Element<TypeKey, TypeValue>>& collection, cons
 int main()
 {
     Sort<TypeKey, TypeValue> sort;
-    const size_t size = 1000000;
+    const size_t size = 10 ;
     std::vector<int> collection;
     std::vector<Element<TypeKey, TypeValue>> elements;
     
-    
+
     //init(collection, size);
     initWithElements(elements, size);
    
     //print(collection);
-    //printElements(elements);
+    printElements(elements);
 
-    sort.ShellSort(elements);
+    sort.HeapSort(elements);
    
     //print(collection);
     printElements(elements);

@@ -15,6 +15,177 @@ namespace SortingTest
 		const size_t sizeOfVector = 50;
 	public:
 
+
+		TEST_METHOD(InsertionSortBasicTest)
+		{
+			std::vector<int> expected;
+			std::vector<int> actuall;
+			for (size_t i = 0; i <= sizeOfVector; i++)
+			{
+				actuall.push_back(sizeOfVector - i);
+				expected.push_back(i);
+
+			}
+
+			sort.InserionSort(actuall);
+
+			Assert::AreEqual(actuall == expected, true);
+		}
+
+		TEST_METHOD(SelectionSortBasicTest)
+		{
+			std::vector<int> expected;
+			std::vector<int> actuall;
+			for (size_t i = 0; i <= sizeOfVector; i++)
+			{
+				actuall.push_back(sizeOfVector - i);
+				expected.push_back(i);
+
+			}
+
+			sort.SelectionSort(actuall);
+
+			Assert::AreEqual(actuall == expected, true);
+		}
+
+		TEST_METHOD(ShellSortBasicTest)
+		{
+			std::vector<Element<int, int>> expected;
+			std::vector<Element<int, int>> actuall;
+			for (int i = 0; i <= sizeOfVector; i++)
+			{
+				actuall.push_back(Element<int, int>{(int)sizeOfVector - i, i});
+				expected.push_back(Element<int, int>{i, (int)sizeOfVector - i});
+			}
+
+			sort.ShellSort(actuall);
+
+			bool areEqual = true;
+			for (size_t i = 0; i < sizeOfVector; i++)
+			{
+				areEqual = areEqual && expected[i] == actuall[i];
+			}
+
+			Assert::IsTrue(areEqual);
+		}
+
+		TEST_METHOD(BubbleSortBasicTest)
+		{
+			std::vector<int> expected;
+			std::vector<int> actuall;
+			for (size_t i = 0; i <= sizeOfVector; i++)
+			{
+				actuall.push_back(sizeOfVector - i);
+				expected.push_back(i);
+
+			}
+
+			sort.BubbleSort(actuall);
+
+			Assert::AreEqual(actuall == expected, true);
+		}
+
+		TEST_METHOD(ShakeSortBasicTest)
+		{
+			std::vector<Element<int,int>> expected;
+			std::vector<Element<int,int>> actuall;
+			for (int i = 0; i <= sizeOfVector; i++)
+			{
+				actuall.push_back(Element<int, int>{(int)sizeOfVector - i, i});
+				expected.push_back(Element<int, int>{i, (int)sizeOfVector - i});
+			}
+
+			sort.ShakeSort(actuall);
+
+			bool areEqual = true;
+			for (size_t i = 0; i < sizeOfVector; i++)
+			{
+				areEqual = areEqual && expected[i] == actuall[i];
+			}
+
+			Assert::IsTrue(areEqual);
+		}
+
+		TEST_METHOD(RabbitTurtleBasicTest)
+		{
+			std::vector<Element<int, int>> expected;
+			std::vector<Element<int, int>> actuall;
+			for (int i = 0; i <= sizeOfVector; i++)
+			{
+				actuall.push_back(Element<int, int>{(int)sizeOfVector - i, i});
+				expected.push_back(Element<int, int>{i, (int)sizeOfVector - i});
+			}
+
+			sort.RabbitTurtleSort(actuall);
+
+			bool areEqual = true;
+			for (size_t i = 0; i < sizeOfVector; i++)
+			{
+				areEqual = areEqual && expected[i] == actuall[i];
+			}
+
+			Assert::IsTrue(areEqual);
+		}
+
+		TEST_METHOD(MergeSortBasicTest)
+		{
+			std::vector<int> expected;
+			std::vector<int> actuall;
+			for (size_t i = 0; i <= sizeOfVector; i++)
+			{
+				actuall.push_back(sizeOfVector - i);
+				expected.push_back(i);
+
+			}
+
+			sort.MergeSort(actuall, 0, actuall.size() - 1);
+
+			bool areEqual = actuall == expected;
+			Assert::IsTrue(areEqual);
+		}
+
+		TEST_METHOD(HeapSortBasicTest)
+		{
+			std::vector<Element<int, int>> expected;
+			std::vector<Element<int, int>> actuall;
+			for (int i = 0; i <= sizeOfVector; i++)
+			{
+				actuall.push_back(Element<int, int>{(int)sizeOfVector - i, i});
+				expected.push_back(Element<int, int>{i, (int)sizeOfVector - i});
+			}
+
+			sort.HeapSort(actuall);
+
+			bool areEqual = true;
+			for (size_t i = 0; i < sizeOfVector; i++)
+			{
+				areEqual = areEqual && expected[i] == actuall[i];
+			}
+
+			Assert::IsTrue(areEqual);
+		}
+
+		TEST_METHOD(QuickSortBasicTest)
+		{
+			std::vector<Element<int, int>> expected;
+			std::vector<Element<int, int>> actuall;
+			for (int i = 0; i <= sizeOfVector; i++)
+			{
+				actuall.push_back(Element<int, int>{(int)sizeOfVector - i, i});
+				expected.push_back(Element<int, int>{i, (int)sizeOfVector - i});
+			}
+
+			sort.QuickSort(actuall);
+
+			bool areEqual = true;
+			for (size_t i = 0; i < sizeOfVector; i++)
+			{
+				areEqual = areEqual && expected[i] == actuall[i];
+			}
+
+			Assert::IsTrue(areEqual);
+		}
+
 		TEST_METHOD(SwapIntegersTest)
 		{
 			int left = 5,
@@ -72,92 +243,6 @@ namespace SortingTest
 			bool rightEqual = right == expectedRight;
 			Assert::IsTrue(leftEqual);
 			Assert::IsTrue(rightEqual);
-		}
-
-		TEST_METHOD(BubbleSortBasicTest)
-		{
-			std::vector<int> expected;
-			std::vector<int> actuall;
-			for (size_t i = 0; i <= sizeOfVector; i++)
-			{
-				actuall.push_back(sizeOfVector - i);
-				expected.push_back(i);
-
-			}
-
-			sort.BubbleSort(actuall);
-
-			Assert::AreEqual(actuall == expected, true);
-		}
-
-		TEST_METHOD(InsertionSortBasicTest)
-		{
-			std::vector<int> expected;
-			std::vector<int> actuall;
-			for (size_t i = 0; i <= sizeOfVector; i++)
-			{
-				actuall.push_back(sizeOfVector - i);
-				expected.push_back(i);
-
-			}
-
-			sort.InserionSort(actuall);
-
-			Assert::AreEqual(actuall == expected, true);
-		}
-
-		TEST_METHOD(SelectionSortBasicTest)
-		{
-			std::vector<int> expected;
-			std::vector<int> actuall;
-			for (size_t i = 0; i <= sizeOfVector; i++)
-			{
-				actuall.push_back(sizeOfVector - i);
-				expected.push_back(i);
-
-			}
-
-			sort.SelectionSort(actuall);
-
-			Assert::AreEqual(actuall == expected, true);
-		}
-
-		TEST_METHOD(MergeSortBasicTest)
-		{
-			std::vector<int> expected;
-			std::vector<int> actuall;
-			for (size_t i = 0; i <= sizeOfVector; i++)
-			{
-				actuall.push_back(sizeOfVector - i);
-				expected.push_back(i);
-
-			}
-
-			sort.MergeSort(actuall, 0, actuall.size() - 1);
-
-			bool areEqual = actuall == expected;
-			Assert::IsTrue(areEqual);
-		}
-
-		TEST_METHOD(ShakeSortBasicTest)
-		{
-			std::vector<Element<int,int>> expected;
-			std::vector<Element<int,int>> actuall;
-			for (int i = 0; i <= sizeOfVector; i++)
-			{
-				actuall.push_back(Element<int, int>{(int)sizeOfVector - i, i});
-				expected.push_back(Element<int, int>{i, (int)sizeOfVector - i});
-			}
-
-			sort.ShakeSort(actuall);
-
-			bool areEqual = true;
-			for (size_t i = 0; i < sizeOfVector; i++)
-			{
-				areEqual = areEqual && expected[i] == actuall[i];
-			}
-
-			Assert::IsTrue(areEqual);
 		}
 	};
 }

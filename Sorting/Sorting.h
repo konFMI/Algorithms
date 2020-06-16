@@ -33,28 +33,14 @@ namespace Algorithms
 			void ShellSort(std::vector<Element<TypeKey, TypeValue>>& collection);
 
 			void BubbleSort(std::vector<int>& collection);
-			void ShakeSort(std::vector<Element<int, int>>& collection);
+			void ShakeSort(std::vector<Element<TypeKey, TypeValue>>& collection);
+			void RabbitTurtleSort(std::vector<Element<TypeKey, TypeValue>>& collection);
 
 			void MergeSort(std::vector<int>& collection, int left, int right);
 
 			//TODO:
-			void HeapSort(std::vector<int>& collection)
-			{
-				size_t length = collection.size();
-				for (size_t i = length / 2 - 1; i >= 0; i--)
-				{
-					MaxHeapify(collection, length, i);
-				}
-
-				for (size_t i = length - 1; i > 0; i--)
-				{
-					Swap(collection[0], collection[i]);
-
-					MaxHeapify(collection, i, 0);
-				}
-
-			}
-
+			void HeapSort(std::vector<Element<TypeKey,TypeValue>>& collection);
+			
 			void QuickSort(std::vector <Element<TypeKey, TypeValue>>& collection);
 
 			void Swap(int& leftValue, int& rightValue);
@@ -65,7 +51,7 @@ namespace Algorithms
 			void Merge(std::vector<int>& collection, int left, int middle, int right);
 
 			//Used by HeapSort.
-			void MaxHeapify(std::vector<int>& collection, int length, int index);
+			void MaxHeapify(std::vector<Element<TypeKey, TypeValue>>& collection, int length, int index);
 
 			size_t log3Floor(size_t value);
 
@@ -117,44 +103,18 @@ namespace Algorithms
 			}
 		}
 
+		//TODO: Not sure if it is still Shell sort or more like Rabbit Turrtle sort.
 		template<typename TypeKey, typename TypeValue>
 		void Sort<TypeKey, TypeValue>::ShellSort(std::vector<Element<TypeKey, TypeValue>>& collection)
 		{
-			//This delta values series is from Donald E. KnutH
-			std::stack<size_t> deltaValue;
-			deltaValue.push(1);
-			for (size_t i = 1; i <= log3Floor(collection.size()); i++)
-			{
-				deltaValue.push(deltaValue.top() * 2 + 1);
-			}
-
-			while (!deltaValue.empty())
-			{
-				size_t pivotIndex = deltaValue.top();
-				deltaValue.pop();
-
-				for (size_t i = pivotIndex; i < collection.size(); i++)
-				{
-					size_t j = i;
-					pivotIndex = i;
-
-					while (j < pivotIndex && collection[j-pivotIndex].key > collection[pivotIndex].key)
-					{
-						collection[j].key = collection[j - pivotIndex].key;
-						collection[j].value = collection[j - pivotIndex].value;
-						j -= pivotIndex;
-					}
-					collection[j] = collection[pivotIndex];
-
-				}
-			}
+			
 		}
 		
 		template<typename TypeKey, typename TypeValue>
 		void Sort<typename TypeKey, typename TypeValue>::BubbleSort(std::vector<int>& collection)
 		{
 			size_t length = collection.size();
-			bool notSorted = true;
+			/*bool notSorted = true;
 			while (notSorted)
 			{
 				notSorted = false;
@@ -167,13 +127,23 @@ namespace Algorithms
 					}
 				}
 				length--;
-			}
+			}*/
 
+			for (size_t i = 1; i < length; i++)
+			{
+				for (size_t j = length - 1; j >= i; j--)
+				{
+					if (collection[j-1] > collection[j] )
+					{
+						Swap(collection[j - 1], collection[j]);
+					}
+				}
+			}
 
 		}
 
 		template<typename TypeKey, typename TypeValue>
-		void Sort<typename TypeKey, typename TypeValue>::ShakeSort(std::vector<Element<int, int>>& collection)
+		void Sort<typename TypeKey, typename TypeValue>::ShakeSort(std::vector<Element<TypeKey, TypeValue>>& collection)
 		{
 			int k = collection.size(),
 				rightIndex = collection.size() - 1,
@@ -206,6 +176,39 @@ namespace Algorithms
 		}
 
 		template<typename TypeKey, typename TypeValue>
+		void Sort<TypeKey, TypeValue>::RabbitTurtleSort(std::vector<Element<TypeKey, TypeValue>>& collection)
+		{
+			size_t swaps = 0, i = 0, j = 0, gap = collection.size();
+
+			do
+			{
+				// This line is heavy because of the devision
+				//gap = size_t(gap / 1.3);
+				// If we remove devision like this
+				 gap = gap*6 >> 3;
+				// It will be faster but it wont be the optimal series.
+
+				swaps = 0;
+
+				if (gap < 1)
+				{
+					gap = 1;
+				}
+
+
+				for (i = 0; i < collection.size() - gap; i++)
+				{
+					j = i + gap;
+					if (collection[i].key >= collection[j].key)
+					{
+						Swap(&collection[i], &collection[j]);
+						swaps++;
+					}
+				}
+
+			} while (gap > 1 || swaps > 0);
+		}
+		template<typename TypeKey, typename TypeValue>
 		void Sort<typename TypeKey, typename TypeValue>::MergeSort(std::vector<int>& collection, int left, int right)
 		{
 			if (left < right)
@@ -218,6 +221,26 @@ namespace Algorithms
 				Merge(collection, left, middle, right);
 
 			}
+
+		}
+
+		template<typename TypeKey, typename TypeValue>
+		void Sort<TypeKey, TypeValue>::HeapSort(std::vector<Element<TypeKey,TypeValue>>& collection)
+		{
+
+			size_t length = collection.size();
+			for (int i = length / 2 - 1; i >= 0; i--)
+			{
+				MaxHeapify(collection, length, i);
+			}
+
+			for (size_t i = length - 1; i > 0; i--)
+			{
+				Swap(&collection[0], &collection[i]);
+
+				MaxHeapify(collection, i, 0);
+			}
+
 
 		}
 
@@ -272,25 +295,25 @@ namespace Algorithms
 		}
 
 		template<typename TypeKey, typename TypeValue>
-		void Sort<typename TypeKey, typename TypeValue>::MaxHeapify(std::vector<int>& collection, int length, int index)
+		void Sort<typename TypeKey, typename TypeValue>::MaxHeapify(std::vector<Element<TypeKey,TypeValue>>& collection, int length, int index)
 		{
 			int largest = index;
 			int leftChild = 2 * index + 1;
 			int rightChild = 2 * index + 2;
 
-			if (leftChild < length && collection[leftChild] > collection[largest])
+			if (leftChild < length && collection[leftChild].key > collection[largest].key)
 			{
 				largest = leftChild;
 			}
 
-			if (rightChild < length && collection[rightChild] > collection[largest])
+			if (rightChild < length && collection[rightChild].key > collection[largest].key)
 			{
 				largest = rightChild;
 			}
 
 			if (largest != index)
 			{
-				Swap(collection[index], collection[largest]);
+				Swap(&collection[index], &collection[largest]);
 
 				MaxHeapify(collection, length, largest);
 			}
