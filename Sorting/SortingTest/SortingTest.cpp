@@ -85,7 +85,7 @@ namespace SortingTest
 
 			}
 
-			sort.Bubble(actuall);
+			sort.BubbleSort(actuall);
 
 			Assert::AreEqual(actuall == expected, true);
 		}
@@ -101,7 +101,7 @@ namespace SortingTest
 
 			}
 
-			sort.Inserion(actuall);
+			sort.InserionSort(actuall);
 
 			Assert::AreEqual(actuall == expected, true);
 		}
@@ -117,7 +117,7 @@ namespace SortingTest
 
 			}
 
-			sort.Selection(actuall);
+			sort.SelectionSort(actuall);
 
 			Assert::AreEqual(actuall == expected, true);
 		}
@@ -149,7 +149,7 @@ namespace SortingTest
 				expected.push_back(Element<int, int>{i, (int)sizeOfVector - i});
 			}
 
-			sort.Shake(actuall);
+			sort.ShakeSort(actuall);
 
 			bool areEqual = true;
 			for (size_t i = 0; i < sizeOfVector; i++)

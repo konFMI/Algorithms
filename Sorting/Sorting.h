@@ -1,51 +1,40 @@
 #pragma once
 #include<vector>
+#include<stack>
 
 namespace Algorithms
 {
 	namespace Sorting
 	{
 		template <typename TypeKey, typename TypeValue>
-		class Element
+		struct Element
 		{
-		public:
 			TypeKey key;
 			TypeValue value;
-			
-			//TODO: Not sure if this is ok.
-			Element<TypeKey, TypeValue>& operator=(const Element<TypeKey, TypeValue> element)
-			{
-				if (this != &element)
-				{
-					this->key = element.key;
-					this->value = element.value;
-				}
 
-				return *this;
-			}
+
 			bool operator==(const Element<TypeKey, TypeValue> element)
 			{
 				bool condition = this->key == element.key && this->value == element.value;
 
 				return condition;
 			}
-		private:
 		};
+
 		template <typename TypeKey, typename TypeValue>
 		class Sort
 		{
 		public:
 			Sort();
 
-			void Inserion(std::vector<int>& collection);
+			void InserionSort(std::vector<int>& collection);
 
-			void Selection(std::vector<int>& collection);
+			void SelectionSort(std::vector<int>& collection);
 
-			void Bubble(std::vector<int>& collection);
-			void Shake(std::vector<Element<int, int>>& collection);
+			void BubbleSort(std::vector<int>& collection);
+			void ShakeSort(std::vector<Element<int, int>>& collection);
 
 			void MergeSort(std::vector<int>& collection, int left, int right);
-			void Merge(std::vector<int>& collection, int left, int middle, int right);
 
 			//TODO:
 			void HeapSort(std::vector<int>& collection)
@@ -64,12 +53,22 @@ namespace Algorithms
 				}
 
 			}
-			void MaxHeapify(std::vector<int>& collection, int length, int index);
+
+			void QuickSort(std::vector <Element<TypeKey, TypeValue>>& collection);
 
 			void Swap(int& leftValue, int& rightValue);
 			void Swap(Element<TypeKey, TypeValue>* leftElement, Element<TypeKey, TypeValue>* rightElement);
+
+		private:
+			//Used by MergeSort.
+			void Merge(std::vector<int>& collection, int left, int middle, int right);
+
+			//Used by HeapSort.
+			void MaxHeapify(std::vector<int>& collection, int length, int index);
+
 		};
 	}
+
 
 	namespace Sorting
 	{
@@ -79,7 +78,7 @@ namespace Algorithms
 		}
 
 		template<typename TypeKey, typename TypeValue>
-		void Sort<TypeKey, TypeValue>::Inserion(std::vector<int>& collection)
+		void Sort<TypeKey, TypeValue>::InserionSort(std::vector<int>& collection)
 		{
 			size_t lenght = collection.size();
 			for (size_t index = 1; index < lenght; index++)
@@ -97,7 +96,7 @@ namespace Algorithms
 		}
 
 		template<typename TypeKey, typename TypeValue>
-		void Sort<typename TypeKey, typename TypeValue>::Selection(std::vector<int>& collection)
+		void Sort<typename TypeKey, typename TypeValue>::SelectionSort(std::vector<int>& collection)
 		{
 			size_t length = collection.size();
 			for (size_t i = 0; i < length - 1; i++)
@@ -116,7 +115,7 @@ namespace Algorithms
 		}
 		
 		template<typename TypeKey, typename TypeValue>
-		void Sort<typename TypeKey, typename TypeValue>::Bubble(std::vector<int>& collection)
+		void Sort<typename TypeKey, typename TypeValue>::BubbleSort(std::vector<int>& collection)
 		{
 			size_t length = collection.size();
 			bool notSorted = true;
@@ -138,7 +137,7 @@ namespace Algorithms
 		}
 
 		template<typename TypeKey, typename TypeValue>
-		void Sort<typename TypeKey, typename TypeValue>::Shake(std::vector<Element<int, int>>& collection)
+		void Sort<typename TypeKey, typename TypeValue>::ShakeSort(std::vector<Element<int, int>>& collection)
 		{
 			int k = collection.size(),
 				rightIndex = collection.size() - 1,
@@ -264,6 +263,48 @@ namespace Algorithms
 		}
 
 		template<typename TypeKey, typename TypeValue>
+		void Sort<TypeKey, TypeValue>::QuickSort(std::vector<Element<TypeKey, TypeValue>>& collection)
+		{
+			TypeKey leftIndex = 0, rightIndex = collection.size() - 1, leftCounter = leftIndex, rightCounter = rightIndex, pivotElement = 0;
+			std::stack<std::pair<TypeKey, TypeKey>> workStack;
+
+			workStack.push(std::pair<TypeKey, TypeKey>{ leftIndex, rightIndex });
+
+			while (!workStack.empty())
+			{
+				leftIndex = workStack.top().first;
+				rightIndex = workStack.top().second;
+				workStack.pop();
+
+				do
+				{
+					leftCounter = leftIndex;
+					rightCounter = rightIndex;
+					pivotElement = collection[(leftIndex + rightIndex) / 2].key;
+					do
+					{
+
+						while (collection[leftCounter].key < pivotElement) { leftCounter++; }
+						while (pivotElement < collection[rightCounter].key) { rightCounter--; }
+
+						if (leftCounter <= rightCounter)
+						{
+							Swap(&collection[leftCounter], &collection[rightCounter]);
+							leftCounter++;
+							rightCounter--;
+						}
+					} while (leftCounter <= rightCounter);
+
+					if (leftCounter < rightIndex)
+					{
+						workStack.push(std::pair<TypeKey, TypeKey>{leftCounter, rightIndex});
+					}
+					rightIndex = rightCounter;
+				} while (leftIndex < rightIndex);
+			}
+		}
+		
+		template<typename TypeKey, typename TypeValue>
 		void Sort<typename TypeKey, typename TypeValue>::Swap(int& leftValue, int& rightValue)
 		{
 			int tempValue = leftValue;
@@ -271,16 +312,15 @@ namespace Algorithms
 			rightValue = tempValue;
 		}
 
+		//TODO: Not sure if this inline is correct and if so is it useful?
 		template<typename TypeKey, typename TypeValue>
-		inline void Sort<TypeKey, TypeValue>::Swap(Element<TypeKey, TypeValue>* leftElement, Element<TypeKey, TypeValue>* rightElement)
+		void Sort<TypeKey, TypeValue>::Swap(Element<TypeKey, TypeValue>* leftElement, Element<TypeKey, TypeValue>* rightElement)
 		{
 			Element<TypeKey, TypeValue> temp = *leftElement;
 			*leftElement = *rightElement;
 			*rightElement = temp;
-
-
-
 		}
+		
 	}
 }
 
