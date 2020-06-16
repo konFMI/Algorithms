@@ -30,6 +30,7 @@ namespace Algorithms
 			void InserionSort(std::vector<int>& collection);
 
 			void SelectionSort(std::vector<int>& collection);
+			void ShellSort(std::vector<Element<TypeKey, TypeValue>>& collection);
 
 			void BubbleSort(std::vector<int>& collection);
 			void ShakeSort(std::vector<Element<int, int>>& collection);
@@ -65,6 +66,8 @@ namespace Algorithms
 
 			//Used by HeapSort.
 			void MaxHeapify(std::vector<int>& collection, int length, int index);
+
+			size_t log3Floor(size_t value);
 
 		};
 	}
@@ -111,6 +114,39 @@ namespace Algorithms
 					}
 				}
 				Swap(collection[i], collection[swapIndex]);
+			}
+		}
+
+		template<typename TypeKey, typename TypeValue>
+		void Sort<TypeKey, TypeValue>::ShellSort(std::vector<Element<TypeKey, TypeValue>>& collection)
+		{
+			//This delta values series is from Donald E. KnutH
+			std::stack<size_t> deltaValue;
+			deltaValue.push(1);
+			for (size_t i = 1; i <= log3Floor(collection.size()); i++)
+			{
+				deltaValue.push(deltaValue.top() * 2 + 1);
+			}
+
+			while (!deltaValue.empty())
+			{
+				size_t pivotIndex = deltaValue.top();
+				deltaValue.pop();
+
+				for (size_t i = pivotIndex; i < collection.size(); i++)
+				{
+					size_t j = i;
+					pivotIndex = i;
+
+					while (j < pivotIndex && collection[j-pivotIndex].key > collection[pivotIndex].key)
+					{
+						collection[j].key = collection[j - pivotIndex].key;
+						collection[j].value = collection[j - pivotIndex].value;
+						j -= pivotIndex;
+					}
+					collection[j] = collection[pivotIndex];
+
+				}
 			}
 		}
 		
@@ -321,6 +357,20 @@ namespace Algorithms
 			*rightElement = temp;
 		}
 		
+		template<typename TypeKey, typename TypeValue>
+		size_t Sort<TypeKey, TypeValue>::log3Floor(size_t value)
+		{
+			{
+				long result = 0;
+				while (value > 1)
+				{
+					result++;
+					value /= 3;
+				}
+				return result;
+			}
+		}
+
 	}
 }
 

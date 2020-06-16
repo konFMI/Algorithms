@@ -3,6 +3,7 @@
 
 #include <iostream>
 #include <stack>
+#include <queue>
 #include "Sorting.h"
 
 using namespace Algorithms::Sorting;
@@ -47,17 +48,18 @@ void initWithElements(std::vector<Element<TypeKey, TypeValue>>& collection, cons
 int main()
 {
     Sort<TypeKey, TypeValue> sort;
-    const size_t size = 10000000;
+    const size_t size = 1000000;
     std::vector<int> collection;
     std::vector<Element<TypeKey, TypeValue>> elements;
-
+    
+    
     //init(collection, size);
     initWithElements(elements, size);
-
+   
     //print(collection);
     //printElements(elements);
 
-    sort.QuickSort(elements);
+    sort.ShellSort(elements);
    
     //print(collection);
     printElements(elements);
