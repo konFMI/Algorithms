@@ -43,6 +43,8 @@ namespace Algorithms
 			
 			void QuickSort(std::vector <Element<TypeKey, TypeValue>>& collection);
 
+			void SetSort(std::vector<type_t)
+
 			void Swap(int& leftValue, int& rightValue);
 			void Swap(Element<TypeKey, TypeValue>* leftElement, Element<TypeKey, TypeValue>* rightElement);
 
@@ -103,7 +105,7 @@ namespace Algorithms
 			}
 		}
 
-		//TODO: Not sure if it is still Shell sort or more like Rabbit Turrtle sort.
+		//TODO: Not sure if it is still Shell sort or more like Rabbit Turrtle sort. Now it needs an implementation.
 		template<typename TypeKey, typename TypeValue>
 		void Sort<TypeKey, TypeValue>::ShellSort(std::vector<Element<TypeKey, TypeValue>>& collection)
 		{
